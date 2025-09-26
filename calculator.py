@@ -92,7 +92,7 @@ def main():
             print("Exiting...")
             sys.exit()
         else:
-            print("Invalid input. Please enter a number from 1 to 5.")
+            print("Invalid input.")
         print("\n" + "-" * 30)
 
 if __name__ == "__main__":
