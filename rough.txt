@@ -27,3 +27,12 @@ It’s like GitHub but for Docker images.
 A remote repository/server where images are stored.
 
 Anyone
+
+
+
+
+
+
+
+
+jenkins takes stuff from github noit local machine

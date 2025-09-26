@@ -1,0 +1,24 @@
+- name: Deploy Scientific Calculator Docker Image
+  hosts: myservers
+  become: true
+  tasks:
+    - name: Remove old container
+      community.docker.docker_container:
+        name: scientific_calculator
+        state: absent
+        force_kill: yes
+
+    - name: Pull latest Docker image
+      community.docker.docker_image:
+        name: uttamhamsaraj24/scientific-calculator
+        tag: "1.0"
+        source: pull
+
+    - name: Run the interactive Docker container
+      community.docker.docker_container:
+        name: scientific_calculator
+        image: uttamhamsaraj24/scientific-calculator:1.0 
+        state: started
+        restart_policy: "no"
+        detach: yes
+        interactive: yes
