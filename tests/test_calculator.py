@@ -1,52 +1,62 @@
 import unittest
 import math
-from calculator import square_root, factorial, natural_log, power_function
+import os
+import sys
 
 
-def sqrt_test(x):
-    if x < 0:
-        raise ValueError("Cannot calculate square root of negative number")
-    return math.sqrt(x)
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-def factorial_test(x):
-    if x < 0:
-        raise ValueError("Factorial not defined for negative numbers")
-    return math.factorial(x)
+from calculator import calculate_sqrt, calculate_factorial, calculate_ln, calculate_power
 
-def ln_test(x):
-    if x <= 0:
-        raise ValueError("Natural log only defined for positive numbers")
-    return math.log(x)
-
-def power_test(x, b):
-    return math.pow(x, b)
-
-# Unit Tests 
 class TestCalculator(unittest.TestCase):
 
+
     def test_square_root(self):
-        self.assertAlmostEqual(sqrt_test(16), 4)
-        self.assertAlmostEqual(sqrt_test(0), 0)
+  
+        self.assertAlmostEqual(calculate_sqrt(16), 4.0)
+        self.assertAlmostEqual(calculate_sqrt(0), 0.0)
+        self.assertAlmostEqual(calculate_sqrt(2.25), 1.5)
+        self.assertAlmostEqual(calculate_sqrt(2), 1.41421356, places=7)
         with self.assertRaises(ValueError):
-            sqrt_test(-4)
+            calculate_sqrt(-4)
+        with self.assertRaises(TypeError):
+            calculate_sqrt("four")
 
     def test_factorial(self):
-        self.assertEqual(factorial_test(5), 120)
-        self.assertEqual(factorial_test(0), 1)
+        
+        self.assertEqual(calculate_factorial(5), 120)
+        self.assertEqual(calculate_factorial(0), 1)
+        self.assertEqual(calculate_factorial(1), 1)
         with self.assertRaises(ValueError):
-            factorial_test(-2)
+            calculate_factorial(-2)
+        with self.assertRaises(TypeError):
+            calculate_factorial(5.5)
 
     def test_natural_log(self):
-        self.assertAlmostEqual(ln_test(math.e), 1)
+
+        self.assertAlmostEqual(calculate_ln(math.e), 1.0)
+        self.assertAlmostEqual(calculate_ln(1), 0.0)
         with self.assertRaises(ValueError):
-            ln_test(0)
+            calculate_ln(0)
         with self.assertRaises(ValueError):
-            ln_test(-5)
+            calculate_ln(-5)
+        with self.assertRaises(TypeError):
+            calculate_ln("e")
 
     def test_power_function(self):
-        self.assertEqual(power_test(2, 3), 8)
-        self.assertEqual(power_test(5, 0), 1)
-        self.assertEqual(power_test(0, 5), 0)
+       
+        self.assertEqual(calculate_power(2, 3), 8.0)
+        self.assertEqual(calculate_power(5, 0), 1.0)
+        self.assertEqual(calculate_power(0, 5), 0.0)
+        self.assertEqual(calculate_power(0, 0), 1.0) 
+        self.assertEqual(calculate_power(-2, 3), -8.0)
+        self.assertEqual(calculate_power(-2, 2), 4.0)
+        self.assertAlmostEqual(calculate_power(4, 0.5), 2.0)
+        self.assertAlmostEqual(calculate_power(2, -2), 0.25)
+        with self.assertRaises(ValueError):
+            calculate_power(-4, 0.5)
+        with self.assertRaises(TypeError):
+            calculate_power("two", 3)
 
 if __name__ == "__main__":
     unittest.main()
