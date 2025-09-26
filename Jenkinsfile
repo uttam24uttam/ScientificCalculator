@@ -44,6 +44,13 @@ pipeline {
                 }
             }
         }
+        
+        stage('Deploy with Ansible') {
+            steps {
+                // Run the Ansible playbook to deploy the new Docker container
+                sh "ansible-playbook -i Deployment/inventory.ini Deployment/deploy.yml"
+            }
+        }
     }
 
     post {
@@ -55,3 +62,9 @@ pipeline {
         }
     }
 }
+
+
+
+
+
+
