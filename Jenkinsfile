@@ -31,24 +31,26 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                // Build Docker image
+                // Building Docker image
                 sh "docker build -t ${DOCKER_IMAGE} ."
             }
         }
 
         stage('Push Docker Image') {
             steps {
-                // Push Docker image to Docker Hub 
+                // Pushing Docker image to Docker Hub 
                 withDockerRegistry([credentialsId: "${DOCKER_CRED}", url: '']) {
                     sh "docker push ${DOCKER_IMAGE}"
                 }
             }
         }
-        
+
         stage('Deploy with Ansible') {
             steps {
-                // Run the Ansible playbook to deploy the new Docker container
-                sh "ansible-playbook -i Deployment/inventory.ini Deployment/deploy.yml"
+                //Wrapping the command in withEnv to set the correct character encoding
+                withEnv(['LC_ALL=en_US.UTF-8']) {
+                    sh "ansible-playbook -i Deployment/inventory.ini Deployment/deploy.yml"
+                }
             }
         }
     }
