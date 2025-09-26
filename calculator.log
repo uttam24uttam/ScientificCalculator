@@ -1,4 +1,4 @@
-2025-09-27 01:20:42 [MainThread] INFO __main__ - Calculator application started.
+2025-09-27 01:20:42 [MainThread] INFO __main__ - Calculator started.
 2025-09-27 01:20:44 [MainThread] INFO __main__ - START OP: Factorial
 2025-09-27 01:20:50 [MainThread] INFO __main__ - [FACTORIAL] [SUCCESS] 4! = 24
 2025-09-27 01:20:50 [MainThread] INFO __main__ - END OP: Factorial
