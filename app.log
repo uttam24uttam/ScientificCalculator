@@ -1,0 +1,27 @@
+2025-09-27 11:29:45 [INFO] - Calculator application started.
+2025-09-27 11:29:55 [INFO] - START OP: Factorial
+2025-09-27 11:30:03 [INFO] - [SUCCESS] 4! = 24
+2025-09-27 11:30:03 [INFO] - END OP: Factorial
+2025-09-27 11:33:01 [INFO] - Calculator application started.
+2025-09-27 11:33:03 [INFO] - START OP: Factorial
+2025-09-27 11:33:06 [INFO] - [SUCCESS] 5! = 120
+2025-09-27 11:33:06 [INFO] - END OP: Factorial
+2025-09-27 11:33:32 [INFO] - Calculator application started.
+2025-09-27 11:33:35 [INFO] - START OP: Natural Log
+2025-09-27 11:33:39 [ERROR] - [FAILURE] Natural logarithm is only defined for positive numbers.
+2025-09-27 11:33:39 [INFO] - END OP: Natural Log
+2025-09-27 11:33:47 [INFO] - START OP: Power
+2025-09-27 11:33:50 [INFO] - [SUCCESS] 4.0^-3.0 = 0.015625
+2025-09-27 11:33:50 [INFO] - END OP: Power
+2025-09-27 11:34:14 [INFO] - START OP: Factorial
+2025-09-27 11:34:19 [ERROR] - [FAILURE] Factorial is not defined for negative numbers.
+2025-09-27 11:34:19 [INFO] - END OP: Factorial
+2025-09-27 11:34:21 [INFO] - START OP: Square Root
+2025-09-27 11:34:23 [ERROR] - [FAILURE] Cannot calculate square root of a negative number.
+2025-09-27 11:34:23 [INFO] - END OP: Square Root
+2025-09-27 11:34:27 [INFO] - START OP: Natural Log
+2025-09-27 11:34:30 [INFO] - [SUCCESS] ln(5.0) = 1.6094379124341003
+2025-09-27 11:34:30 [INFO] - END OP: Natural Log
+2025-09-27 11:34:42 [INFO] - START OP: Square Root
+2025-09-27 11:34:49 [INFO] - [SUCCESS] √49.0 = 7.0
+2025-09-27 11:34:49 [INFO] - END OP: Square Root

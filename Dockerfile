@@ -1,14 +1,16 @@
 FROM python:3.12-slim
 
-#working directory
 WORKDIR /app
 
-#Copying project files into container
-COPY . .
+
+COPY requirements.txt .
 
 # Install dependencies
-RUN pip install --no-cache-dir -r requirements.txt || echo "No requirements file, skipping"
+RUN pip install --no-cache-dir -r requirements.txt
 
-# run calculator
-CMD ["python", "calculator.py"]
+COPY ./src /app/src
 
+ENV PYTHONPATH=/app
+
+# Define the command to run the application
+CMD ["python", "-m", "src.calculator_app.calculator"]
