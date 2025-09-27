@@ -6,20 +6,20 @@ pipeline {
         DOCKER_CRED = "docker-hub-cred"
     }
     stages {
-        // Checkout code from GitHub
-        stage('STAGE 1:Checkout Code') {
+        //STAGE 1
+        stage('Checkout Code') {
          steps {
             git branch: 'main', url: 'https://github.com/uttam24uttam/ScientificCalculator.git'
          }
         }
-        // Install Python dependencies
-        stage('STAGE 2:Install Requirements') {
+        //STAGE 2
+        stage('Install Requirements') {
          steps {
             sh "${PYTHON} -m pip install --no-cache-dir -r requirements.txt"
             }
         }
-        // Run unit tests
-        stage('STAGE 3:Run Tests') {
+        //STAGE 3
+        stage('Run Tests') {
             environment {
                 PYTHONPATH = 'src'
             }
@@ -27,22 +27,22 @@ pipeline {
                 sh "${PYTHON} -m unittest discover -s tests"
             }
         }
-        // Build Docker image
-        stage('STAGE 4:Build Docker Image') {
+        //Stage 4
+        stage('Build Docker Image') {
             steps {
                 sh "docker build -t ${DOCKER_IMAGE} ."
             }
         }
-        // Push Docker image
-        stage('STAGE 5:Push Docker Image') {
+        //Stage 5
+        stage('Push Docker Image') {
             steps {
                 withDockerRegistry([credentialsId: "${DOCKER_CRED}", url: '']) {
                     sh "docker push ${DOCKER_IMAGE}"
                 }
             }
         }
-        // Deploy with Ansible
-        stage('STAGE 6:Deploy with Ansible') {
+        //Stage 6
+        stage('Deploy with Ansible') {
             steps {
                 ansiblePlaybook(
                     playbook: 'Deployment/deploy.yml',
