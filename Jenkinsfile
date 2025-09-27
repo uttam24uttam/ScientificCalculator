@@ -46,13 +46,15 @@ pipeline {
         }
 
         stage('Deploy with Ansible') {
-            steps {
-                //Wrapping the command in withEnv to set the correct character encoding
-                withEnv(['LC_ALL=en_US.UTF-8']) {
-                    sh "ansible-playbook -i Deployment/inventory.ini Deployment/deploy.yml"
-                }
-            }
-        }
+          steps {
+         
+            ansiblePlaybook(
+            playbook: 'Deployment/deploy.yml',
+            inventory: 'Deployment/inventory.ini',
+            installation: 'Ansible-default' 
+        )
+    }
+}
     }
 
     post {
