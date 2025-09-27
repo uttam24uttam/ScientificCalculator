@@ -1,28 +1,25 @@
 pipeline {
     agent any
-
     environment {
         PYTHON = "python3"
         DOCKER_IMAGE = "uttamhamsaraj24/scientific-calculator:1.0"
         DOCKER_CRED = "docker-hub-cred"
     }
-
     stages {
-        stage('Checkout Code') {
-            steps {
-                git branch: 'main', url: 'https://github.com/uttam24uttam/ScientificCalculator.git'
+        // Checkout code from GitHub
+        stage('STAGE 1:Checkout Code') {
+         steps {
+            git branch: 'main', url: 'https://github.com/uttam24uttam/ScientificCalculator.git'
+         }
+        }
+        // Install Python dependencies
+        stage('STAGE 2:Install Requirements') {
+         steps {
+            sh "${PYTHON} -m pip install --no-cache-dir -r requirements.txt"
             }
         }
-        
-        //install requirements
-        stage('Install Requirements') {
-            steps {
-                sh "${PYTHON} -m pip install --no-cache-dir -r requirements.txt || echo 'No requirements file, skipping'"
-            }
-        }
-
-        stage('Run Tests') {
-         //unit test
+        // Run unit tests
+        stage('STAGE 3:Run Tests') {
             environment {
                 PYTHONPATH = 'src'
             }
@@ -30,25 +27,22 @@ pipeline {
                 sh "${PYTHON} -m unittest discover -s tests"
             }
         }
-        
-        //build docker image
-        stage('Build Docker Image') {
+        // Build Docker image
+        stage('STAGE 4:Build Docker Image') {
             steps {
                 sh "docker build -t ${DOCKER_IMAGE} ."
             }
         }
-
-        //push docker image to docker hub
-        stage('Push Docker Image') {
+        // Push Docker image
+        stage('STAGE 5:Push Docker Image') {
             steps {
                 withDockerRegistry([credentialsId: "${DOCKER_CRED}", url: '']) {
                     sh "docker push ${DOCKER_IMAGE}"
                 }
             }
         }
-        
-        //deploy using ansible
-        stage('Deploy with Ansible') {
+        // Deploy with Ansible
+        stage('STAGE 6:Deploy with Ansible') {
             steps {
                 ansiblePlaybook(
                     playbook: 'Deployment/deploy.yml',
