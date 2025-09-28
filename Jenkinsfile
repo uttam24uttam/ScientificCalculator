@@ -53,24 +53,38 @@ pipeline {
         }
     }
 
-    post {
+   post {
         success {
             emailext (
+                to: 'uttamhamsaraj24@gmail.com',
                 subject: "SUCCESS: Pipeline '${currentBuild.fullDisplayName}'",
-                body: """<p>Project: ${env.JOB_NAME}<br>
-                           Build Number: ${env.BUILD_NUMBER}<br>
-                           URL: <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>""",
-                to: 'uttamhamsaraj24@gmail.com'
+                mimeType: 'text/html',
+                body: """
+                    <h2>SUCCESS: Pipeline '${currentBuild.fullDisplayName}'</h2>
+                    <p>The pipeline completed successfully.</p>
+                    <p>
+                        <strong>Project:</strong> ${env.JOB_NAME}<br>
+                        <strong>Build Number:</strong> ${env.BUILD_NUMBER}<br>
+                        <strong>Build URL:</strong> <a href="${env.BUILD_URL}">${env.BUILD_URL}</a>
+                    </p>
+                """
             )
         }
         failure {
             emailext (
+                to: 'uttamhamsaraj24@gmail.com',
                 subject: "FAILED: Pipeline '${currentBuild.fullDisplayName}'",
-                body: """<p>Check console output at <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>
-                           <p>Project: ${env.JOB_NAME}<br>
-                           Build Number: ${env.BUILD_NUMBER}<br>
-                           Error: ${currentBuild.result}</p>""",
-                to: 'uttamhamsaraj24@gmail.com' 
+                mimeType: 'text/html',
+                body: """
+                    <h2>FAILED: Pipeline '${currentBuild.fullDisplayName}'</h2>
+                    <p>The pipeline failed. Please check the console output.</p>
+                    <p>
+                        <strong>Project:</strong> ${env.JOB_NAME}<br>
+                        <strong>Build Number:</strong> ${env.BUILD_NUMBER}<br>
+                        <strong>Error:</strong> ${currentBuild.result}<br>
+                        <strong>Console Output:</strong> <a href="${env.BUILD_URL}">Click here to view the logs</a>
+                    </p>
+                """
             )
         }
     }
