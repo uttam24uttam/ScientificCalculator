@@ -52,7 +52,8 @@ pipeline {
             }
         }
     }
-
+       
+      //Sending Email Notification  
    post {
         success {
             emailext (
