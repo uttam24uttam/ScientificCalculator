@@ -44,7 +44,7 @@ def show_menu():
     print("3. Natural Logarithm")
     print("4. Power Function")
     print("5. Exit")
-    print()
+  
 
 def square_root():
     logger.info("START OP: Square Root")
@@ -104,7 +104,7 @@ def main():
     while True:
         show_menu()
         choice = input("Select option: ")
-        print()
+
         if choice == "1":
             square_root()
         elif choice == "2":
